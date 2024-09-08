@@ -16,21 +16,15 @@ public class VolumeControl {
 }
 "@
 
-# Create a script block to run the volume control logic
-$scriptBlock = {
-    try {
-        while ($true) {
-            # Increase the system volume
-            [VolumeControl]::IncreaseVolume()
+# Infinite loop to continuously increase the volume at intervals
+try {
+    while ($true) {
+        # Increase the system volume
+        [VolumeControl]::IncreaseVolume()
 
-            # Add a delay to prevent system overload
-            Start-Sleep -Seconds 5
-        }
-    } catch {
-        Write-Host "An error occurred: $_"
+        # Add a delay to prevent system overload (adjust the sleep time if necessary)
+        Start-Sleep -Seconds 5
     }
+} catch {
+    Write-Host "An error occurred: $_"
 }
-
-# Start the process with the script block in a hidden window
-Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -WindowStyle Hidden -Command & { $($scriptBlock) }"
-
